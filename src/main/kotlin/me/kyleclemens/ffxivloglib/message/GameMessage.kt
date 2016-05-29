@@ -3,6 +3,7 @@ package me.kyleclemens.ffxivloglib.message
 import me.kyleclemens.ffxivloglib.entry.Name
 import me.kyleclemens.ffxivloglib.get
 import me.kyleclemens.ffxivloglib.message.parts.AutoTranslatePart
+import me.kyleclemens.ffxivloglib.message.parts.IconPart
 import me.kyleclemens.ffxivloglib.message.parts.NamePart
 import me.kyleclemens.ffxivloglib.message.parts.Part
 import me.kyleclemens.ffxivloglib.message.parts.StringPart
@@ -44,6 +45,15 @@ class GameMessage(val raw: String) : Message {
                     parts.add(StringPart(plainMessage.toString()))
                     plainMessage.setLength(0)
                 }
+            }
+            if (c.toUnsignedInt() == IconPart.MARKER[0] && this.raw.length > i && this.raw[i + 1].toUnsignedInt() == IconPart.MARKER[1]) {
+                if (!plainMessage.isEmpty()) {
+                    parts.add(StringPart(plainMessage.toString()))
+                    plainMessage.setLength(0)
+                }
+                parts.add(IconPart(this.raw[i + 2].toUnsignedInt() to this.raw[i+ 3].toUnsignedInt()))
+                skip = 5
+                continue
             }
             plainMessage.append(c)
         }
