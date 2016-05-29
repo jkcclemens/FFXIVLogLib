@@ -53,7 +53,7 @@ class GameMessage(val raw: String) : Message {
                 }
                 val length = this.raw[i + 2].toUnsignedInt()
                 val endMarker = this.raw.indexOf(0x03.toChar(), i + length)
-                parts.add(IconPart(listOf(this.raw[i + 3].toUnsignedInt())))
+                parts.add(IconPart(this.raw[i + 3, endMarker].map { it.toUnsignedInt() }))
                 skip = endMarker - i
                 continue
             }

@@ -6,5 +6,5 @@ class IconPart(val bytes: List<Int>) : Part {
         val MARKER = listOf(0x02, 0x12)
     }
 
-    override val displayText = "<icon>"
+    override val displayText = "<icon ${bytes.map { Integer.toHexString(it) }.joinToString("")}>"
 }
