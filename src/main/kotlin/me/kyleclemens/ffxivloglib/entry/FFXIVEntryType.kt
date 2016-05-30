@@ -35,7 +35,7 @@ enum class FFXIVEntryType(val code: Int) {
     PARTY_MARK(0x49),
     RANDOM(0x4a),
     TRIAL_UPDATE(0xb9),
-    UNKNOWN(0xFF);
+    UNKNOWN(-0x01);
 
     companion object {
         fun fromCode(code: Int) = FFXIVEntryType.values().find { it.code == code } ?: FFXIVEntryType.UNKNOWN
